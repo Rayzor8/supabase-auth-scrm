@@ -1,5 +1,6 @@
 import Dashboard from "./components/dashboard";
-import Header from "./components/Header";
+import Header from "./components/header";
+
 
 
 function App() {
