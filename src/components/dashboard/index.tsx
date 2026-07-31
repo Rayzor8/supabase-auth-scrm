@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import supabase from "../supabase-client";
-import type { SaleMetrics } from "../types";
+import supabase from "../../supabase-client";
+import type { SaleMetrics } from "../../types";
 import { Chart } from "react-charts";
+import AddForm from "./add-form";
 
 function Dashboard() {
   const [metrics, setMetrics] = useState<SaleMetrics[] | null>(null);
@@ -24,6 +25,25 @@ function Dashboard() {
       }
     }
     fetchMetrics();
+
+    const channel = supabase
+      .channel("deal-change")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "sales_deals",
+        },
+        () => {
+          fetchMetrics();
+        },
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   console.log(metrics);
@@ -69,7 +89,7 @@ function Dashboard() {
                     },
                     scaleType: "linear",
                     min: 0,
-                    max: y_max(),                 
+                    max: y_max(),
                   },
                 ],
               }}
@@ -77,6 +97,7 @@ function Dashboard() {
           )}
         </div>
       </div>
+      {metrics && <AddForm metrics={metrics} />}
     </div>
   );
 }

@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
 
 :root {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1.5;
   font-weight: 400;
   letter-spacing: -0.5px; /* makes letters closer together */
@@ -14,7 +14,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   font-family: inherit; /* Ensure UI elements inherit Inter */
 }
 
@@ -73,10 +76,10 @@ header {
 }
 
 .form-container {
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   width: 90%;
   border-radius: 5px;
-  margin: 5px auto 20px auto;
+  margin: 5px auto 1rem auto;
   padding: 8px;
   border: 1px solid #e4e4e4;
   flex-shrink: 0;
@@ -99,7 +102,7 @@ button {
   padding: 7px;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #124F33;
+  background-color: #124f33;
   color: rgb(255, 255, 255);
   width: 100px;
   transition: background-color 0.2s ease;
@@ -120,4 +123,37 @@ select {
   margin-left: 5px;
   background-color: #ffffff;
   color: black;
+}
+
+select:disabled,
+input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.error-message {
+  color: white;
+  background-color: #dc3545;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.success-message {
+  color: white;
+  background-color: #3cb371;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
 }
