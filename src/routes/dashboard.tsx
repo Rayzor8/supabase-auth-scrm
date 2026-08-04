@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import supabase from "../../supabase-client";
-import type { SaleMetrics } from "../../types";
+import supabase from "../supabase-client";
+import type { SaleMetrics } from "../types";
 import { Chart } from "react-charts";
-import AddForm from "./add-form";
+import AddForm from "../components/dashboard/add-form";
 
 function Dashboard() {
   const [metrics, setMetrics] = useState<SaleMetrics[] | null>(null);
