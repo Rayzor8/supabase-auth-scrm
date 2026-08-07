@@ -67,7 +67,7 @@ export default function AddForm({ metrics }: AddformProps) {
   };
 
   return (
-    <div className="form-container">
+    <div className="add-form-container">
       <form
         aria-label="Add new sales deal"
         aria-describedby="form-description"
