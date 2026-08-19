@@ -1,8 +1,5 @@
 import { createContext, useContext } from "react";
-import { type Session } from "@supabase/supabase-js";
-export type AuthContextType = {
-  session: Session | null | undefined;
-};
+import type { AuthContextType } from "../context/auth-context";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 export function useAuth() {
