@@ -1,4 +1,21 @@
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+
 function Header() {
+  const { signOutUser, session } = useAuth();
+  const navigate = useNavigate();
+  async function handleSignOut() {
+    const { success, error } = await signOutUser();
+
+    if (success) {
+      navigate("/");
+    }
+
+    if (error) {
+      console.error("Error signing out:", error);
+    }
+  }
+
   return (
     <>
       <header>
@@ -20,6 +37,13 @@ function Header() {
           </svg>
           Sales Team Dashboard
         </h1>
+
+        <div className="user">
+          <h2>{session?.user.email}</h2>
+          <button aria-label="Sign out of your account" onClick={handleSignOut}>
+            Sign out
+          </button>
+        </div>
       </header>
     </>
   );

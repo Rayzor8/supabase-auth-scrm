@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
 
 :root {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  letter-spacing: -0.5px; 
+  letter-spacing: -0.5px;
   color-scheme: light dark;
   color: black;
   background-color: white;
@@ -14,12 +14,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-button, input, textarea, select {
-  font-family: inherit; 
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }
 
 h2 {
-  letter-spacing: -0.7px; 
+  letter-spacing: -0.7px;
   font-weight: 400;
 }
 
@@ -33,7 +36,8 @@ header {
   padding: 2rem 0;
   height: 3.6rem;
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -46,6 +50,15 @@ header h1 {
   justify-content: center;
   align-items: center;
   font-size: 1.8rem;
+}
+
+header .user h2 {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 0.8rem; /* new */
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  letter-spacing: 0px;
 }
 
 .dashboard-wrapper {
@@ -171,7 +184,9 @@ input:disabled {
   border-radius: 5px;
   background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .sign-form-container:hover {
@@ -211,8 +226,10 @@ input:disabled {
   font-weight: 400;
   background-color: white;
   color: #082c1b;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  box-sizing: border-box; 
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  box-sizing: border-box;
 }
 
 .sign-form-container .form-input:focus {
@@ -238,7 +255,9 @@ input:disabled {
   background-color: #124f33;
   color: white;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .sign-form-container .form-button:hover {
@@ -266,7 +285,7 @@ input:disabled {
 .sign-form-container .radio-group label {
   margin-left: 3.5rem;
   flex: 1;
-  text-align: center; 
+  text-align: center;
 }
 
 .sign-form-container input {
@@ -276,20 +295,20 @@ input:disabled {
 
 /* landing header */
 .landing-header {
-text-align: center;
-font-size: 3.5rem;
-line-height: 1.2;
-margin-bottom: 0.7rem;
-padding: 1.5rem 1rem 0.2rem;
-margin-top: 0;
-color: #082c1b;
-font-weight: 700;
-letter-spacing: -2.5px;
-background: linear-gradient(45deg, #082c1b, #0dc566);
--webkit-background-clip: text;
-background-clip: text;
--webkit-text-fill-color: transparent;
-animation: fadeIn 0.8s ease-out;
+  text-align: center;
+  font-size: 3.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.7rem;
+  padding: 1.5rem 1rem 0.2rem;
+  margin-top: 0;
+  color: #082c1b;
+  font-weight: 700;
+  letter-spacing: -2.5px;
+  background: linear-gradient(45deg, #082c1b, #0dc566);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeIn 0.8s ease-out;
 }
 
 @keyframes fadeIn {

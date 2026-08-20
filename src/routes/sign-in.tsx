@@ -14,7 +14,7 @@ const Signin = () => {
       password: String(formData.get("password")),
     };
 
-    const { success, error: signInError } = await signInUser(
+    const { success,data, error: signInError } = await signInUser(
       signInForm.email,
       signInForm.password,
     );
@@ -23,7 +23,7 @@ const Signin = () => {
       return signInError;
     }
 
-    if (success) {
+    if (success && data?.session) {
       navigate("/dashboard");
       return null;
     }

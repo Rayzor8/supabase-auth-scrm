@@ -1,14 +1,19 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { AuthContext } from "../hooks/useAuth";
 import supabase from "../supabase-client";
-import type { Session } from "@supabase/supabase-js";
+import type { AuthTokenResponsePassword, Session } from "@supabase/supabase-js";
 
 export type AuthContextType = {
   session: Session | null | undefined;
   signInUser: (
     email: string,
     password: string,
-  ) => Promise<{ success: boolean; error: string | null }>;
+  ) => Promise<{
+    data?: AuthTokenResponsePassword["data"];
+    success: boolean;
+    error: string | null;
+  }>;
+  signOutUser: () => Promise<{ success: boolean; error: string | null }>;
 };
 
 type AuthProviderProps = {
@@ -51,7 +56,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       });
 
       if (error) {
-        console.error("error signing in :",error.message);
+        console.error("error signing in :", error.message);
         return {
           success: false,
           error: error.message,
@@ -75,8 +80,34 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
+  async function signOutUser() {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("supabase error  signing out:", error);
+        return {
+          success: false,
+          error: error.message,
+        };
+      }
+
+      return {
+        success: true,
+        error: null,
+      };
+    } catch (error) {
+      console.error("Unknown error occurred signing out", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error occurred";
+      return {
+        success: false,
+        error: errorMessage,
+      };
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ session, signInUser }}>
+    <AuthContext.Provider value={{ session, signInUser, signOutUser }}>
       {children}
     </AuthContext.Provider>
   );
