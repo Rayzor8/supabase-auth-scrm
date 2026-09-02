@@ -23,7 +23,8 @@ type AuthProviderProps = {
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   const [session, setSession] = useState<
     AuthContextType["session"] | null | undefined
-  >(null);
+  >(undefined);
+
 
   useEffect(() => {
     async function getInitialSession() {

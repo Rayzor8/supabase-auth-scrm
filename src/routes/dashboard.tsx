@@ -46,8 +46,6 @@ function Dashboard() {
     };
   }, []);
 
-  console.log(metrics);
-
   const chartData = [
     {
       label: "Sales",
@@ -67,37 +65,47 @@ function Dashboard() {
     return 5000;
   }
 
+  if (!metrics) {
+    return <p>Loading...</p>;
+  }
+
+  if (metrics.length === 0) {
+    return (
+      <div className="dashboard-wrapper">
+        <p>No sales data available.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard-wrapper">
       <div className="chart-container">
         <h2>Total Sales This Quarter ($)</h2>
         <div style={{ flex: 1 }}>
-          {metrics && (
-            <Chart
-              options={{
-                data: chartData,
-                primaryAxis: {
-                  getValue(datum) {
-                    return datum.primary ?? "";
-                  },
-                  scaleType: "band",
+          <Chart
+            options={{
+              data: chartData,
+              primaryAxis: {
+                getValue(datum) {
+                  return datum.primary ?? "";
                 },
-                secondaryAxes: [
-                  {
-                    getValue(datum) {
-                      return datum.secondary ?? 0;
-                    },
-                    scaleType: "linear",
-                    min: 0,
-                    max: y_max(),
+                scaleType: "band",
+              },
+              secondaryAxes: [
+                {
+                  getValue(datum) {
+                    return datum.secondary ?? 0;
                   },
-                ],
-              }}
-            />
-          )}
+                  scaleType: "linear",
+                  min: 0,
+                  max: y_max(),
+                },
+              ],
+            }}
+          />
         </div>
       </div>
-      {metrics && <AddForm metrics={metrics} />}
+      <AddForm metrics={metrics} />
     </div>
   );
 }

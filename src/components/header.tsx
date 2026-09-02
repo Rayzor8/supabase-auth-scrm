@@ -8,12 +8,16 @@ function Header() {
     const { success, error } = await signOutUser();
 
     if (success) {
-      navigate("/");
+      navigate("/sign-in");
     }
 
     if (error) {
       console.error("Error signing out:", error);
     }
+  }
+
+  if (!session) {
+    return null;
   }
 
   return (
