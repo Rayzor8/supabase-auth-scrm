@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { AuthContext } from "../hooks/useAuth";
 import supabase from "../supabase-client";
-import type { AuthTokenResponsePassword, Session } from "@supabase/supabase-js";
+import type { AuthTokenResponsePassword, Session,AuthResponse } from "@supabase/supabase-js";
 
 export type AuthContextType = {
   session: Session | null | undefined;
@@ -10,6 +10,14 @@ export type AuthContextType = {
     password: string,
   ) => Promise<{
     data?: AuthTokenResponsePassword["data"];
+    success: boolean;
+    error: string | null;
+  }>;
+  signUpNewUser: (
+    email: string,
+    password: string,
+  ) => Promise<{
+    data?: AuthResponse["data"];
     success: boolean;
     error: string | null;
   }>;
@@ -24,7 +32,6 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   const [session, setSession] = useState<
     AuthContextType["session"] | null | undefined
   >(undefined);
-
 
   useEffect(() => {
     async function getInitialSession() {
@@ -107,8 +114,42 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
+  async function signUpNewUser(email: string, password: string) {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email.toLocaleLowerCase(),
+        password,
+      });
+
+      if (error) {
+        console.error("error signup in :", error.message);
+        return {
+          success: false,
+          error: error.message,
+        };
+      }
+
+      console.log("supabase sign up success :", data);
+      return {
+        success: true,
+        data,
+        error: null,
+      };
+    } catch (error) {
+      console.error("Unknown error occurred", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error occurred";
+      return {
+        success: false,
+        error: errorMessage,
+      };
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ session, signInUser, signOutUser }}>
+    <AuthContext.Provider
+      value={{ session, signInUser, signUpNewUser, signOutUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

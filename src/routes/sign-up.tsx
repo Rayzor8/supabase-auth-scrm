@@ -3,13 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const Signup = () => {
-  const { signInUser } = useAuth();
+  const { signUpNewUser } = useAuth();
   const navigate = useNavigate();
 
   const [error, submitAction, isPending] = useActionState(formAction, null);
 
   async function formAction(_prevState: null | string, formData: FormData) {
-    const signInForm = {
+    const signUpForm = {
       email: String(formData.get("email")),
       password: String(formData.get("password")),
     };
@@ -18,14 +18,15 @@ const Signup = () => {
       success,
       data,
       error: signInError,
-    } = await signInUser(signInForm.email, signInForm.password);
+    } = await signUpNewUser(signUpForm.email, signUpForm.password);
 
     if (signInError) {
+      console.error("error signing up:", signInError);
       return signInError;
     }
 
     if (success && data?.session) {
-      navigate("/sign-in");
+      navigate("/dashboard");
       return null;
     }
 
@@ -88,7 +89,15 @@ const Signup = () => {
             {isPending ? "Signing up..." : "Sign Up"}
           </button>
 
-          {/* Error message */}
+          {error && (
+            <div
+              id="signup-error"
+              role="alert"
+              className="sign-form-error-message"
+            >
+              {error}
+            </div>
+          )}
         </form>
       </div>
     </>
